@@ -4,7 +4,7 @@ from rest_framework.decorators import parser_classes, api_view
 from django.http import JsonResponse
 
 from users.service import UserService
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, LoginSerializer
 from decorators.execption_handler import execption_hanlder
 
 
@@ -20,6 +20,17 @@ def signup_user(request, *args, **kwargs):
     data = request.data
     params = UserSerializer(data=data)
     params.is_valid(raise_exception=True)
-    return JsonResponse(user_service.signup(**params.data))
+    return JsonResponse(user_service.signup(**params.data), status=status.HTTP_201_CREATED)
 
+@api_view(["POST"])
+@parser_classes([JSONParser])
+@execption_hanlder()
+def login(request, *args, **kwargs):
+    return login_user(request, *args, **kwargs)
+
+def login_user(request, *args, **kwargs):
+    data = request.data
+    params = LoginSerializer(data=data)
+    params.is_valid(raise_exception=True)
+    return JsonResponse(user_service.login(**params.data), status=status.HTTP_200_OK)
 
