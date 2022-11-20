@@ -1,6 +1,6 @@
 from django.db      import models
 
-from core.models    import TimeStampModel
+from wnb.models    import TimeStampModel
 
 class HostReview(TimeStampModel):
     comment  = models.TextField()

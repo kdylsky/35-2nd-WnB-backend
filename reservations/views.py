@@ -6,10 +6,10 @@ from django.views           import View
 
 from reservations.models    import Reservation
 from rooms.models           import Room
-from core.utils             import signin_decorator
+# from core.utils             import signin_decorator
 
 class MainResevationsView(View):
-    @signin_decorator
+    # @signin_decorator
     def get(self, request): 
         reservations    = Reservation.objects.select_related("room") \
                                              .prefetch_related("room__image_set") \
@@ -26,7 +26,7 @@ class MainResevationsView(View):
 
         return JsonResponse({"RESULT": result}, status=200)
 
-    @signin_decorator
+    # @signin_decorator
     def post(self, request):
         try:
             data                    = json.loads(request.body)
@@ -56,7 +56,7 @@ class MainResevationsView(View):
             return JsonResponse({"MESSAGE": "DOESNOT_EXIST_ROOM"}, status=400)
 
 class DetailReservationView(View):
-    @signin_decorator
+    # @signin_decorator
     def get(self, request, reservation_number):
         reservation          = Reservation.objects.select_related("room") \
                                                   .prefetch_related("room__image_set") \
@@ -78,7 +78,7 @@ class DetailReservationView(View):
         }
         return JsonResponse({"RESULT": result}, status=200)
     
-    @signin_decorator
+    # @signin_decorator
     def delete(self, request, reservation_number):
         try:
             Reservation.objects.get(user= request.user, number=reservation_number).delete()

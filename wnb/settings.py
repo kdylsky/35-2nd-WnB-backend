@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'reviews',
     'reservations',
     'hosts',
-    'core',
     'django_extensions'
 ]
 

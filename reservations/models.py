@@ -1,6 +1,6 @@
 from django.db      import models
 
-from core.models    import TimeStampModel
+from wnb.models    import TimeStampModel
 
 class Reservation(TimeStampModel):
     number          = models.CharField(max_length = 50)

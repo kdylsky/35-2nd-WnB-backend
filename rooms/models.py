@@ -1,5 +1,5 @@
 from django.db      import models
-from core.models    import TimeStampModel
+from wnb.models    import TimeStampModel
 
 class Category(models.Model): 
     name    = models.CharField(max_length = 50)
