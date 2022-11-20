@@ -6,12 +6,11 @@ from django.core.exceptions import ValidationError
 from django.http            import JsonResponse
 
 from users.models           import User
-
 def signin_decorator(func):
     def wrapper(self, request, *args, **kwargs):
         try:
             token        = request.headers.get('Authorization')   
-            payload      = jwt.decode(token, settings.SECRET_KEY, settings.ALGORITHM)
+            payload      = jwt.decode(token, settings.JWT_KEY, algorithms=["HS256"])
             request.user = User.objects.get(id = payload['id'])
             
             return func(self, request, *args, **kwargs)
