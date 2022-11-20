@@ -1,5 +1,4 @@
 from django.db.models import Q
-from reservations.models import Reservation
 
 def rooms_filter(filter_value):
     q = Q()        

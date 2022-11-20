@@ -1,15 +1,18 @@
-from django.db.models import Q
-from reservations.models import Reservation  
-from rooms.models import Room
-from rooms.serializers import RoomModelSerializer
+from django.db.models       import Q
+
+from rooms.serializers      import RoomModelSerializer, RoomDetailSerializer
+
+from rooms.models           import Room
+from reservations.models    import Reservation  
 
 class RoomRepo:
     def __init__(self) -> None:
-        self.model = Reservation
-        self.model_room = Room
-        self.serializer = RoomModelSerializer
-
-    def check_room(self, q, check_in, check_out):
+        self.model           = Reservation
+        self.model_room      = Room
+        self.serializer      = RoomModelSerializer
+        self.serializer_room = RoomDetailSerializer
+    
+    def check_room(self, q: tuple, check_in: str, check_out: str)-> object:
         reservations = []
         if check_in and check_out:
             reservations = self.model.objects.filter(
@@ -20,6 +23,14 @@ class RoomRepo:
         rooms = Room.objects.filter(q).distinct().exclude(reservation__in=reservations)
         return rooms
 
-    def get_list(self, rooms):
+    def get_list(self, rooms: object)-> dict:
         serializer = self.serializer(instance=rooms, many=True)
+        return serializer.data
+
+    def get_room_object(self, room_id: int)-> object:
+        return self.model_room.objects.select_related('room_type', 'host', 'category')\
+                               .prefetch_related('reservation_set', 'image_set', 'detailimage_set').get(id=room_id)
+
+    def get_room(self, room_obj: int)-> dict:
+        serializer = self.serializer_room(instance=room_obj)
         return serializer.data

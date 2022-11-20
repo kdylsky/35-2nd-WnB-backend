@@ -1,10 +1,11 @@
-from rest_framework import status
-from rest_framework.parsers import JSONParser
-from rest_framework.decorators import parser_classes, api_view
-from django.http import JsonResponse
+from django.http                import JsonResponse
 
-from users.service import UserService
-from users.serializers import UserSerializer, LoginSerializer
+from rest_framework             import status
+from rest_framework.parsers     import JSONParser
+from rest_framework.decorators  import parser_classes, api_view
+
+from users.service                import UserService
+from users.serializers            import UserSerializer, LoginSerializer
 from decorators.execption_handler import execption_hanlder
 
 
@@ -14,9 +15,6 @@ user_service = UserService()
 @parser_classes([JSONParser])
 @execption_hanlder()
 def signup(request, *args, **kwargs):
-    return signup_user(request, *args, **kwargs)
-
-def signup_user(request, *args, **kwargs):
     data = request.data
     params = UserSerializer(data=data)
     params.is_valid(raise_exception=True)
@@ -26,9 +24,6 @@ def signup_user(request, *args, **kwargs):
 @parser_classes([JSONParser])
 @execption_hanlder()
 def login(request, *args, **kwargs):
-    return login_user(request, *args, **kwargs)
-
-def login_user(request, *args, **kwargs):
     data = request.data
     params = LoginSerializer(data=data)
     params.is_valid(raise_exception=True)
