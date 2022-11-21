@@ -1,6 +1,6 @@
 from django.db      import models
 
-from core.models    import TimeStampModel
+from wnb.models    import TimeStampModel
 
 class Host(TimeStampModel):
     user            = models.ForeignKey("users.User", on_delete = models.CASCADE)
