@@ -4,7 +4,7 @@
 <bt>
 
 ##### <본 프로젝트는 팀 프로젝트 이후 `Django REST FrameWork`를 적용하기 위한 개인 프로젝트 입니다> 
-##### <팀 프로젝트의 레포지토리는 https://github.com/wecode-bootcamp-korea/35-2nd-WnB-backend을 참조해주세요!!>
+##### <팀 프로젝트의 레포지토리는 https://github.com/wecode-bootcamp-korea/35-2nd-WnB-backend 을 참조해주세요!!>
 <br>
 
 
