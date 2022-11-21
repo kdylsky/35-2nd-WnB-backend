@@ -50,4 +50,7 @@ class ReservationRepo:
         """ serializer로 특정 reservation객체 반환 """
         serializer = self.serializer_deatil_schema(instance=reservation_object)
         return serializer.data
-        
+    
+    def delete_reservation(self, reservation_object: object)-> dict:
+        """ 특정 reservation객체 삭제"""
+        return reservation_object.delete()
