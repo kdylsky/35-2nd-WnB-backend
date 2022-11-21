@@ -1,8 +1,8 @@
 from django.urls            import path
 
-from reservations.views     import MainResevationsView, DetailReservationView
+from reservations.views     import  ReservationView, DetailReservationView
 
 urlpatterns = [
-    path('', MainResevationsView.as_view()),
-    path('/<str:reservation_number>', DetailReservationView.as_view())
+    path("", ReservationView.as_view()),
+    path("/<int:reservation_id>", DetailReservationView.as_view())
 ]

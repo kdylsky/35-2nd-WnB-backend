@@ -8,7 +8,6 @@ from rooms.service                import RoomService
 from rooms.utils.utils            import rooms_filter 
 from decorators.execption_handler import execption_hanlder
 
-
 room_service = RoomService()
 
 @api_view(["GET"])

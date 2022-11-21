@@ -3,6 +3,7 @@ from django.db.models       import Q
 from rooms.serializers      import RoomModelSerializer, RoomDetailSerializer
 
 from rooms.models           import Room
+from rooms.exceptions       import NotFoundError
 from reservations.models    import Reservation  
 
 class RoomRepo:
@@ -28,9 +29,12 @@ class RoomRepo:
         return serializer.data
 
     def get_room_object(self, room_id: int)-> object:
-        return self.model_room.objects.select_related('room_type', 'host', 'category')\
+        try:
+            return self.model_room.objects.select_related('room_type', 'host', 'category')\
                                .prefetch_related('reservation_set', 'image_set', 'detailimage_set').get(id=room_id)
-
+        except self.model_room.DoesNotExist:
+            raise NotFoundError()
+    
     def get_room(self, room_obj: int)-> dict:
         serializer = self.serializer_room(instance=room_obj)
         return serializer.data

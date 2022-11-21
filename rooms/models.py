@@ -1,4 +1,4 @@
-from django.db      import models
+from django.db     import models
 from wnb.models    import TimeStampModel
 
 class Category(models.Model): 
@@ -33,7 +33,12 @@ class Room(TimeStampModel):
     
     class Meta: 
         db_table = 'rooms'
-        
+    
+    @property
+    def full_address(self):
+        return self.address + " " + self.detail_address
+
+
 class Facility(models.Model): 
     name = models.CharField(max_length = 50)
     
