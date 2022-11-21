@@ -34,8 +34,8 @@ class ReservationView(APIView):
 @execption_hanlder()
 @login_decorators()
 def post_reservation(request, *args, **kwargs):
-    user = request.user
-    data = request.data
+    user   = request.user
+    data   = request.data
     params = CreateReservationSchema(data=data)
     params.is_valid(raise_exception=True)
     return JsonResponse(reservation_service.create_reservation(user, **params.data), status=status.HTTP_201_CREATED)

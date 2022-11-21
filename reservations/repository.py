@@ -1,22 +1,24 @@
 import uuid
 
-from rooms.models import Room
+from rooms.models             import Room
 from reservations.models      import Reservation
 from reservations.serializers import ReservationModelSerialzier, ReservationModelSchema
 
 class ReservationRepo:
     def __init__(self) -> None:
-        self.model_room = Room
-        self.model = Reservation
-        self.serializer = ReservationModelSerialzier
-        self.serializer_two = ReservationModelSchema
+        self.model_room         = Room
+        self.model_reservation  = Reservation
+        self.serializer         = ReservationModelSerialzier
+        self.serializer_schema  = ReservationModelSchema
     
     def get_room_object(self, room_id: int)-> object:
+        """ 아이디로 room객체 반환 """
         return self.model_room.objects.get(id=room_id)
 
     def create(self, user: object, room_object: object, check_in: str, check_out: str, people: int, price: float)-> dict:
-        number = str(uuid.uuid4())     
-        data = {
+        """ serializer로 reservation객체 생성 후 반환 """
+        number  = str(uuid.uuid4())     
+        data    = {
             "user"      : user.id,
             "room"      : room_object.id,
             "check_in"  : check_in,
@@ -31,8 +33,10 @@ class ReservationRepo:
         return serializer.data
     
     def get_reservation_object(self, user: object)-> dict:
-        return self.model.objects.filter(user=user)
+        """ user객체의 reservation객체 반환 """
+        return self.model_reservation.objects.filter(user=user)
     
     def get_reservation(self, reservation_objects: object)-> dict:
-        serializer = self.serializer_two(instance=reservation_objects, many=True)
+        """ serializer로 reservation객체 반환 """
+        serializer = self.serializer_schema(instance=reservation_objects, many=True)
         return serializer.data
