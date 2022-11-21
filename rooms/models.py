@@ -1,4 +1,4 @@
-from django.db      import models
+from django.db     import models
 from wnb.models    import TimeStampModel
 
 class Category(models.Model): 

@@ -4,9 +4,9 @@ from users.models import User
 class UserRepo:
     def __init__(self) -> None:
         self.serializer = UserSerializer
-        self.model = User
+        self.model      = User
     
-    def create(self, first_name, last_name, email, phone_number, birth_day, password):
+    def create(self, first_name: str, last_name: str, email: str, phone_number: str, birth_day: str, password: str):
         data = {
             "first_name"    : first_name,
             "last_name"     : last_name,
@@ -20,5 +20,5 @@ class UserRepo:
         user.save()
         return user.data
     
-    def get_user(self, email):
+    def get_user(self, email: str)-> object:
         return self.model.objects.get(email=email)

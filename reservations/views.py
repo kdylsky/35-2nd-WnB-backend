@@ -10,7 +10,6 @@ from decorators.execption_handler import execption_hanlder
 from reservations.serializers     import CreateReservationSchema
 from reservations.service         import ReservationService
 
-
 reservation_service = ReservationService()
 
 class ReservationView(APIView):

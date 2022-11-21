@@ -1,6 +1,5 @@
 from reservations.repository import ReservationRepo
 
-
 class ReservationService:
     def __init__(self) -> None:
         self.repo = ReservationRepo()
@@ -9,7 +8,7 @@ class ReservationService:
         room_object = self.repo.get_room_object(room)
         data = self.repo.create(user, room_object, check_in, check_out, people, price)
         return data
-
+        
     def get_reservation_list(self, user: object)-> dict:
         reservation_objects = self.repo.get_reservation_object_all(user)
         data = self.repo.get_reservation_all(reservation_objects)
@@ -19,7 +18,7 @@ class ReservationService:
         reservation_object = self.repo.get_reservation_object(user, reservation_id)
         data = self.repo.get_reservation(reservation_object)
         return data
-    
+        
     def delete_detail_reservation_list(self, user: object, reservation_id: int)-> dict:
         reservation_object = self.repo.get_reservation_object(user, reservation_id)
         data = self.repo.delete_reservation(reservation_object)

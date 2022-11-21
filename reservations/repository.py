@@ -3,6 +3,7 @@ import uuid
 from rooms.models             import Room
 from reservations.models      import Reservation
 from reservations.serializers import ReservationModelSerialzier, ReservationModelSchema, ReservationDetailSchema
+from reservations.exceptions  import NotFoundError
 
 class ReservationRepo:
     def __init__(self) -> None:
@@ -14,8 +15,11 @@ class ReservationRepo:
 
     def get_room_object(self, room_id: int)-> object:
         """ 아이디로 room객체 반환 """
-        return self.model_room.objects.get(id=room_id)
-
+        try:
+            return self.model_room.objects.get(id=room_id)
+        except self.model_room.DoesNotExist:
+            raise NotFoundError()
+    
     def create(self, user: object, room_object: object, check_in: str, check_out: str, people: int, price: float)-> dict:
         """ serializer로 reservation객체 생성 후 반환 """
         number  = str(uuid.uuid4())     
@@ -44,8 +48,11 @@ class ReservationRepo:
     
     def get_reservation_object(self, user: object, reservation_id: int)-> object:
         """ user객체의 특정 reservation객체 반환"""
-        return self.model_reservation.objects.get(id=reservation_id, user=user)
-
+        try:
+            return self.model_reservation.objects.get(id=reservation_id, user=user)
+        except self.model_reservation.DoesNotExist:
+            raise NotFoundError()
+    
     def get_reservation(self, reservation_object: object)-> dict:
         """ serializer로 특정 reservation객체 반환 """
         serializer = self.serializer_deatil_schema(instance=reservation_object)
