@@ -11,6 +11,11 @@ class ReservationService:
         return data
 
     def get_reservation_list(self, user: object)-> dict:
-        reservation_objects = self.repo.get_reservation_object(user)
-        data = self.repo.get_reservation(reservation_objects)
+        reservation_objects = self.repo.get_reservation_object_all(user)
+        data = self.repo.get_reservation_all(reservation_objects)
         return data 
+    
+    def get_detail_reservation_list(self, user: object, reservation_id: int)-> dict:
+        reservation_object = self.repo.get_reservation_object(user, reservation_id)
+        data = self.repo.get_reservation(reservation_object)
+        return data

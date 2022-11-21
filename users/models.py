@@ -12,3 +12,7 @@ class User(TimeStampModel):
 
     class Meta:
         db_table = 'users'
+    
+    @property
+    def full_name(self):
+        return self.last_name + " " + self.first_name

@@ -48,6 +48,19 @@ def get_reservation(request, *args, **kwargs):
     return JsonResponse(reservation_service.get_reservation_list(user), status=status.HTTP_200_OK, safe=False)
 
 
+class DetailReservationView(APIView):
+    def get(self, request, *args, **kwargs):
+        return get_detail_reservation(request, args, kwargs)
+
+@parser_classes([JSONParser])
+@execption_hanlder()
+@login_decorators()
+def get_detail_reservation(request, args, kwargs):
+    user            = request.user
+    reservation_id  = kwargs["reservation_id"] 
+    return JsonResponse(reservation_service.get_detail_reservation_list(user, reservation_id), status=status.HTTP_200_OK)
+
+
 # class DetailReservationView(View):
 #     # @signin_decorator
 #     def get(self, request, reservation_number):

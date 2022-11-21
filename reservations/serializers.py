@@ -12,6 +12,7 @@ class CreateReservationSchema(serializers.Serializer):
     people      = serializers.IntegerField()
     price       = serializers.DecimalField(max_digits = 10, decimal_places = 2)
 
+
 class ReservationModelSerialzier(serializers.ModelSerializer):
     """
     reservation모델 serializer
@@ -33,3 +34,20 @@ class ReservationModelSchema(serializers.ModelSerializer):
     class Meta:
         model  = Reservation
         fields = "number", "check_in", "check_out", "room", "address", "detail_address", "image"
+
+
+class ReservationDetailSchema(serializers.ModelSerializer):
+    """
+    reservation모델 detail list serializer
+    """
+    room        = serializers.PrimaryKeyRelatedField(source="room.name", read_only=True)
+    user        = serializers.PrimaryKeyRelatedField(source="user.full_name", read_only=True) 
+    description = serializers.PrimaryKeyRelatedField(source="room.description", read_only=True)
+    address     = serializers.PrimaryKeyRelatedField(source="room.full_address", read_only=True)
+    latitude    = serializers.PrimaryKeyRelatedField(source="room.latitude", read_only=True)
+    longitude   = serializers.PrimaryKeyRelatedField(source="room.longitude", read_only=True)
+    image       = ImageModelSerializer(source="room.image_set", many=True, read_only =True)
+    
+    class Meta:
+        model = Reservation
+        fields = "number", "user", "room", "price", "people", "check_in", "check_out", "image", "description", "address", "latitude", "longitude"
