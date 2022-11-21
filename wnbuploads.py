@@ -29,9 +29,6 @@ def insert_Category():
                 
                 Category.objects.create(name = name, img_url= img_url)
     print('Categegory DATA UPLOADED SUCCESSFULY!')
-# insert_Category()
-
-
 
 def insert_RoomType():
     with open(ROOMTYPE_PATH) as csv_file:
@@ -42,10 +39,6 @@ def insert_RoomType():
                 name    = row[0]
                 RoomType.objects.create(name = name)
     print('Roomtype DATA UPLOADED SUCCESSFULY!')
-# insert_RoomType()
-
-
-
 
 # def insert_Host():
 #     with open(HOST_PATH) as csv_file:
@@ -61,9 +54,6 @@ def insert_RoomType():
 #                     profile_img = profile_img
 #                     )
 #     print('Host DATA UPLOADED SUCCESSFULY!')
-# insert_Host()
-
-
 
 def insert_Facility():
     with open(FACILITY_PATH) as csv_file:
@@ -74,7 +64,6 @@ def insert_Facility():
                 name = row[0]
                 Facility.objects.create(name = name)
     print('Facility DATA UPLOADED SUCCESSFULY!')
-# insert_Facility()
 
 
 def insert_Room():
@@ -115,7 +104,6 @@ def insert_Room():
                 )
                 
         print('insert_room DATA UPLOADED SUCCESSFULY!')
-# insert_Room()
 
 
 def insert_RoomFacility():
@@ -128,7 +116,6 @@ def insert_RoomFacility():
                 room_facility = Facility.objects.get(id=row[1])
                 RoomFacility.objects.create(room=room, room_facility = room_facility )
     print('Facility DATA UPLOADED SUCCESSFULY!')
-# insert_RoomFacility()
 
 
 
@@ -142,7 +129,6 @@ def insert_Image():
                 room    = Room.objects.get(id=row[1])
                 Image.objects.create(url = url, room = room)
     print('Image DATA UPLOADED SUCCESSFULY!')
-# insert_Image()
 
 
 def insert_DetailImage():
@@ -155,4 +141,12 @@ def insert_DetailImage():
                 room    = Room.objects.get(id=row[1])
                 DetailImage.objects.create(url = url, room = room)
     print('Image DATA UPLOADED SUCCESSFULY!')
+
+# insert_Category()
+# insert_RoomType()
+# insert_Host()
+# insert_Facility()
+# insert_Room()
+# insert_RoomFacility()
+# insert_Image()
 # insert_DetailImage()
